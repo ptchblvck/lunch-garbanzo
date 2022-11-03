@@ -1,0 +1,222 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+h2 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  border-bottom: #00adb5 solid 5px;
+}
+
+header {
+  background-color: #222831;
+  color: #eeeeee;
+  display: grid;
+  height: 8vh;
+}
+
+main {
+  background-color: #e3fdfd;
+}
+
+footer {
+  background-color: #222831;
+  color: #eeeeee;
+  display: grid;
+}
+
+button {
+  border: 1px #222831 solid;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #393e46;
+  color: #00dee8;
+}
+
+button:hover {
+  background-color: #00adb5;
+  color: #eeeeee;
+  border: #393e46 1px solid;
+}
+
+button:active {
+  background-color: #ff2e63;
+  color: #eeeeee;
+  border: #393e46 1px solid;
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-wrapper:hover {
+  filter: invert(50%) sepia(87%) saturate(3948%) hue-rotate(319deg)
+    brightness(101%) contrast(94%);
+}
+
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.navbar__icon {
+  height: 60px;
+  filter: invert(93%);
+  margin-inline: 2em;
+}
+
+.navbar > ul {
+  display: flex;
+  padding: 0;
+  list-style: none;
+  gap: 3vw;
+  justify-content: center;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+.container {
+  width: 80vw;
+  margin-inline: auto;
+}
+
+.mittagstisch {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+}
+
+#the-list {
+  list-style: none;
+  padding: 0;
+  padding-block: 1em;
+  text-align: center;
+}
+
+#the-list > * {
+  padding-block: 0.1em;
+}
+
+#the-list > *:hover {
+  color: #ff2e63;
+  cursor: pointer;
+}
+
+#entry {
+  padding: 3px;
+}
+
+#entry:focus {
+  outline-color: #ff2e63;
+}
+
+#add-button {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+dialog {
+  border-radius: 5px;
+  border: #393e46 solid 2px;
+  background-color: #ff2e63;
+  color: #eee;
+  padding-inline: 10vw;
+  margin-bottom: 50vh;
+}
+
+#dialog-close {
+  position: absolute;
+  top: -1px;
+  right: 0px;
+  padding: 5px;
+  padding-left: 8px;
+  border: 0;
+  border-radius: 1px;
+  border-bottom-left-radius: 5px;
+}
+
+dialog::backdrop {
+  background: #000000a0;
+}
+
+main .mittagstisch .message-box {
+  width: 80%;
+  height: 10vh;
+  background-color: #393e46;
+  color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  border-radius: 15px;
+  white-space: nowrap;
+  text-shadow: 0 2px 2px rgba(#000, 0.9);
+  font-size: 2.6vw;
+  overflow: hidden;
+  gap: 1vw;
+}
+
+#messenger {
+  color: #ff2e63;
+}
+
+.help {
+  margin: 0;
+  padding: 0;
+  padding-block: 3em;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+}
+
+.help-wrapper {
+  width: 80vw;
+}
+
+.help-wrapper > h2,
+.help-info {
+  text-align: center;
+  display: block;
+}
+
+.help-wrapper > .help-info {
+  font-size: 0.8em;
+}
+
+.help-wrapper > p > span {
+  color: #ff2e63;
+}
+
+.whois {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 17vh;
+}
+
+.knowledge:hover {
+  border: none;
+  color: #ff2e63;
+}
+
+.copyright {
+  justify-self: end;
+}

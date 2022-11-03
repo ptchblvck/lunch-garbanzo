@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="icon" href="img/meal-64.png" />
+    <title>Mittagstisch</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar container">
+        <div class="nav-wrapper">
+          <img
+            src="img/food-bar-100.png"
+            alt="logo-icon"
+            class="navbar__icon"
+          />
+          <h2 class="navbar__heading">Mittagstisch</h2>
+        </div>
+        <ul>
+          <li><a href="#entry" id="link-to-entries">loslegen</a></li>
+          <li><a href="help.html">hilfe</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="mittagstisch">
+          <!-- <div class="circle"></div> -->
+          <label for="entries">Wer ist dabei?</label>
+          <ul id="the-list"></ul>
+          <div class="text-entries">
+            <input type="text" id="entry" />
+            <button type="submit" id="add-button">hinzufügen</button>
+          </div>
+          <dialog>
+            <p><span id="name-entry"></span> hinzugefügt!</p>
+            <button id="dialog-close">X</button>
+          </dialog>
+          <button id="start-button">Klicken zum Starten!</button>
+          <div class="message-box">
+            <div id="frontovers"></div>
+            <div id="messenger"></div>
+            <!-- <div id="message"></div> -->
+            <div id="leftovers"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="container">
+        <div class="whois">
+          <div class="creator">
+            created with
+            <a
+              href="https://www.youtube.com/watch?v=YwpVDmYj8f0"
+              target="_blank"
+              class="knowledge"
+            >
+              dummy knowledge</a
+            >
+          </div>
+          <div class="copyright">© by JK</div>
+        </div>
+      </div>
+    </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"
+      type="text/javascript"
+    ></script>
+    <script src="index.js" type="text/javascript"></script>
+  </body>
+</html>
