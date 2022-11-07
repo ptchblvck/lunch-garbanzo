@@ -4,8 +4,8 @@ const nameEntry = document.getElementById("entry");
 const dialog = document.querySelector("dialog");
 const dialogClose = document.querySelector("dialog>button");
 const theUltimateShowdown = document.getElementById("messenger");
-const leftOver = document.getElementById("leftovers");
-const frontOver = document.getElementById("frontovers");
+const dialogText = document.getElementById("add-text");
+const nameInDialog = document.getElementById("name-entry");
 
 // namen hinzufuegen
 
@@ -13,9 +13,49 @@ let nameInputArray = [];
 
 function addAnotherPerson() {
   let input = nameEntry.value;
-  nameInputArray.push(input);
-  document.getElementById("name-entry").innerHTML = input;
-  nameEntry.value = "";
+  if (nameInputArray.includes(input)) {
+    alert("Eintrag existiert bereits!");
+  } else {
+    if (input.length > 0) {
+      insertName(input);
+      nameInputArray.push(input);
+      dialogText.innerHTML = '<span id="name-entry"></span> hinzugefügt!';
+      document.getElementById("name-entry").textContent = input;
+      openDialogLight();
+      console.log(nameInputArray);
+      nameEntry.value = "";
+      return true;
+    }
+    return false;
+  }
+}
+
+// dialog oeffnen
+
+function openDialogLight() {
+  dialog.showModal();
+  addPlayers();
+  setTimeout(function () {
+    dialog.close();
+  }, 2 * 1000); // close dialog after 2s
+}
+
+// input weitergabe
+
+function insertName(phrase) {
+  nameInDialog.textContent = phrase;
+}
+
+// Leerer Eintrag darf nicht sein!
+
+function checkIfFilled() {
+  if (nameEntry.value.length > 0) {
+    return false;
+  }
+  dialogText.textContent = "Versuchen Sie es doch bitte einfach noch einmal!";
+  openDialogLight();
+  console.log(nameInputArray);
+  return true;
 }
 
 addButton.onclick = function () {
@@ -23,13 +63,10 @@ addButton.onclick = function () {
 };
 
 function addToListEvent() {
-  addAnotherPerson();
-  dialog.showModal();
-  console.log(nameInputArray);
-  addPlayers();
-  setTimeout(function () {
-    dialog.close();
-  }, 1.5 * 1000); // close dialog after 1.5s
+  if (addAnotherPerson()) {
+  } else {
+    if (checkIfFilled());
+  }
 }
 
 // Enter knopf zur Eingabe
@@ -45,7 +82,7 @@ nameEntry.addEventListener("keypress", (ent) => {
 function whoIsPaying() {
   let randomPersonPosition = Math.floor(Math.random() * nameInputArray.length);
   let randomPerson = nameInputArray[randomPersonPosition];
-  return "Heute ist " + randomPerson + " dran!";
+  return randomPerson;
 }
 
 // dialog beenden
@@ -87,13 +124,28 @@ var Messenger = function (el) {
       startButton.addEventListener("click", changeEverthing());
     };
 
-    function messageSwap(messagevalue) {
-      m.messages = [messagevalue];
-    }
-
     function changeEverthing() {
       let theChosenLotteryWinner = whoIsPaying(nameInputArray);
-      messageSwap(theChosenLotteryWinner);
+      m.messages = [theChosenLotteryWinner + " wurde auserwählt!"];
+      removePlayers(theChosenLotteryWinner);
+      if (Array.isArray(nameInputArray) && !nameInputArray.length) {
+        alert("Es befinden sich keine Eintraege in der Liste!");
+      }
+      function removePlayers(playerName) {
+        if (nameInputArray.includes(playerName)) {
+          let crossedOutName = document
+            .getElementById("the-list")
+            .querySelectorAll("li");
+          for (let step = 0; step < crossedOutName.length; step++) {
+            const element = crossedOutName[step];
+            if (crossedOutName[step].textContent === playerName) {
+              element.classList.toggle("crossed-out");
+              nameInputArray.pop(playerName);
+              console.log(nameInputArray);
+            }
+          }
+        }
+      }
     }
   };
 
@@ -154,9 +206,9 @@ var Messenger = function (el) {
     $(el).html(message);
 
     if (do_cycles === true) {
-      setTimeout(m.animateFadeBuffer, 50);
+      setTimeout(m.animateFadeBuffer, 70);
     } else {
-      setTimeout(m.cycleText, 10000);
+      setTimeout(m.cycleText, 5000);
     }
   };
 

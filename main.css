@@ -119,6 +119,11 @@ button:active {
   cursor: pointer;
 }
 
+#the-list > li.crossed-out {
+  text-decoration: line-through;
+  color: #00adb5;
+}
+
 #entry {
   padding: 3px;
 }
@@ -130,6 +135,10 @@ button:active {
 #add-button {
   padding: 5px;
   border-radius: 5px;
+}
+
+#name-entry {
+  color: #222831;
 }
 
 dialog {
