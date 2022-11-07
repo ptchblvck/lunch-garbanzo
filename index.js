@@ -17,6 +17,7 @@ function addAnotherPerson() {
     alert("Eintrag existiert bereits!");
   } else {
     if (input.length > 0) {
+      capitalizeFist(input);
       insertName(input);
       nameInputArray.push(input);
       dialogText.innerHTML = '<span id="name-entry"></span> hinzugefügt!';
@@ -32,12 +33,25 @@ function addAnotherPerson() {
 
 // dialog oeffnen
 
-function openDialogLight() {
+function openDialogLight(timeValue) {
+  var timeValue = timeValue || 1000;
   dialog.showModal();
   addPlayers();
   setTimeout(function () {
     dialog.close();
-  }, 2 * 1000); // close dialog after 2s
+  }, 2 * timeValue); // close dialog after 2s
+}
+
+// capitalize first letter
+
+function capitalizeFist(textValue) {
+  arr = textValue.split(" ");
+  for (let i = 0; i < arr.length; i++) {
+    arr[i] =
+      arr[i].charAt(0).toLocaleUpperCase() +
+      arr[i].slice(1).toLocaleLowerCase();
+  }
+  return arr.join(" ");
 }
 
 // input weitergabe
@@ -129,7 +143,10 @@ var Messenger = function (el) {
       m.messages = [theChosenLotteryWinner + " wurde auserwählt!"];
       removePlayers(theChosenLotteryWinner);
       if (Array.isArray(nameInputArray) && !nameInputArray.length) {
-        alert("Es befinden sich keine Eintraege in der Liste!");
+        dialogText.textContent =
+          "Es befinden sich keine Einträge in der Liste!";
+        openDialogLight(4000);
+        // alert("Es befinden sich keine Eintraege in der Liste!");
       }
       function removePlayers(playerName) {
         if (nameInputArray.includes(playerName)) {
@@ -138,12 +155,16 @@ var Messenger = function (el) {
             .querySelectorAll("li");
           for (let step = 0; step < crossedOutName.length; step++) {
             const element = crossedOutName[step];
-            if (crossedOutName[step].textContent === playerName) {
-              element.classList.toggle("crossed-out");
-              nameInputArray.pop(playerName);
-              console.log(nameInputArray);
+            if (element.textContent === playerName) {
+              element.classList.add("crossed-out");
             }
           }
+          for (let jump = 0; jump < nameInputArray.length; jump++) {
+            if (nameInputArray.includes(playerName)) {
+              nameInputArray.splice(nameInputArray.indexOf(playerName), 1);
+            }
+          }
+          console.log(nameInputArray);
         }
       }
     }
