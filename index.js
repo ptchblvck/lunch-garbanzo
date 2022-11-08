@@ -13,11 +13,11 @@ let nameInputArray = [];
 
 function addAnotherPerson() {
   let input = nameEntry.value;
+  input = capitalizeFist(input);
   if (nameInputArray.includes(input)) {
     alert("Eintrag existiert bereits!");
   } else {
     if (input.length > 0) {
-      capitalizeFist(input);
       insertName(input);
       nameInputArray.push(input);
       dialogText.innerHTML = '<span id="name-entry"></span> hinzugefügt!';
@@ -117,7 +117,40 @@ function addPlayers() {
     .map((player) => `<li>${player}</li>`)
     .join("\n");
   document.getElementById("the-list").innerHTML = template;
+  divideTheList();
 }
+
+// flexboxing the list
+
+function divideTheList() {
+  if (document.getElementById("the-list").querySelectorAll("li").length > 9) {
+    document.getElementById("the-list").classList.add("columncount-to-two");
+  }
+  if (document.getElementById("the-list").querySelectorAll("li").length > 20) {
+    document.getElementById("the-list").classList.remove("columncount-to-two");
+    document.getElementById("the-list").classList.add("columncount-to-three");
+  }
+  if (document.getElementById("the-list").querySelectorAll("li").length > 30) {
+    document
+      .getElementById("the-list")
+      .classList.remove("columncount-to-three");
+    document.getElementById("the-list").classList.add("columncount-to-four");
+  }
+  if (document.getElementById("the-list").querySelectorAll("li").length > 40) {
+    document.getElementById("the-list").classList.remove("columncount-to-four");
+    document.getElementById("the-list").classList.add("columncount-to-five");
+  }
+}
+
+// check for startbuttonclick
+
+let clickStartStatus = function () {
+  startButton.onclick = function () {
+    console.log("startbutton was clicked");
+    return true;
+  };
+  return false;
+};
 
 // nachrichten auswahl
 

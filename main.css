@@ -114,6 +114,22 @@ button:active {
   padding-block: 0.1em;
 }
 
+.columncount-to-two {
+  column-count: 2;
+}
+
+.columncount-to-three {
+  column-count: 3;
+}
+
+.columncount-to-four {
+  column-count: 4;
+}
+
+.columncount-to-five {
+  column-count: 5;
+}
+
 #the-list > *:hover {
   color: #ff2e63;
   cursor: pointer;
