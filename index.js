@@ -232,14 +232,18 @@ function choseTheLottertyWinner() {
   }
 
   if (compareWithPreviousValue(chosenMessage)) {
-    document
-      .getElementById("messenger")
-      .classList.remove("typed-out-before-start");
-    setTimeout(function () {
-      document
-        .getElementById("messenger")
-        .classList.add("typed-out-after-start");
-    }, 500);
+    // document
+    //   .getElementById("messenger")
+    //   .classList.remove("typed-out-before-start");
+    // setTimeout(function () {
+    //   document
+    //     .getElementById("messenger")
+    //     .classList.add("typed-out-after-start");
+    // }, 500);
+
+    // strictModeEnabled();
+    document.getElementById("messenger").style.animationPlayState = "paused";
+    document.getElementById("messenger").style.animationPlayState = "running";
 
     console.log(getComputedStyle(r).getPropertyValue("--steps"));
     console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
@@ -299,6 +303,27 @@ function compareWithPreviousValue(previousValue) {
     return true;
   }
   return false;
+}
+
+// change to strict mode
+
+function strictModeEnabled() {
+  "use strict";
+  document.getElementById("messenger").addEventListener(
+    "animationiteration",
+    function (g) {
+      g.preventDefault;
+      document
+        .getElementById("messenger")
+        .classList.remove("typed-out-before-start");
+
+      void document.getElementById("messenger").offsetWidth;
+      document
+        .getElementById("messenger")
+        .classList.add("typed-out-before-start");
+    },
+    false
+  );
 }
 
 // write text to div
