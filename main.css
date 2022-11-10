@@ -216,11 +216,20 @@ main .mittagstisch .message-box {
   width: 0;
 }
 
-.typed-out-after-start {
+.typed-out-before-start {
   text-align: center;
   overflow: hidden;
   white-space: nowrap;
   animation: typing-2 var(--time-duration) steps(var(--steps), end) 300ms
+    forwards;
+  width: 0;
+}
+
+.typed-out-after-start {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing-3 var(--time-duration) steps(var(--steps), end) 300ms
     forwards;
   width: 0;
 }
@@ -236,7 +245,20 @@ main .mittagstisch .message-box {
     width: 100%;
   }
 }
+
 @keyframes typing-2 {
+  0% {
+    width: 0;
+  }
+  20% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes typing-3 {
   0% {
     width: 0;
   }

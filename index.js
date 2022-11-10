@@ -184,7 +184,14 @@ function codeMessageFunction() {
 
 function initCodeMessage() {
   START_BUTTON.onclick = function () {
-    START_BUTTON.addEventListener("click", choseTheLottertyWinner());
+    if (!nameInputArray.length) {
+      DIALOG_TEXT.textContent =
+        "Versuchen Sie es doch bitte einfach noch einmal!";
+      openDialogLight();
+      console.log("there are no entries in the List");
+    } else {
+      START_BUTTON.addEventListener("click", choseTheLottertyWinner());
+    }
   };
 }
 
@@ -213,11 +220,26 @@ function choseTheLottertyWinner() {
   let theChosenLotteryWinner = whoIsPaying(nameInputArray);
   let chosenMessage = theChosenLotteryWinner + " wurde auserwählt!";
   let winnerMessageLength = chosenMessage.length;
-  setStepsVariableValue(Math.floor(winnerMessageLength * 1.7));
+  setStepsVariableValue(Math.floor(winnerMessageLength * 1.5));
   setTimeVariableValue(convertNumberToTime(winnerMessageLength));
   if (compareWinnerWithDefault(chosenMessage)) {
     document.getElementById("messenger").classList.remove("typed-out-default");
-    document.getElementById("messenger").classList.add("typed-out-after-start");
+    document
+      .getElementById("messenger")
+      .classList.add("typed-out-before-start");
+    console.log(getComputedStyle(r).getPropertyValue("--steps"));
+    console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
+  }
+
+  if (compareWithPreviousValue(chosenMessage)) {
+    document
+      .getElementById("messenger")
+      .classList.remove("typed-out-before-start");
+    setTimeout(function () {
+      document
+        .getElementById("messenger")
+        .classList.add("typed-out-after-start");
+    }, 500);
 
     console.log(getComputedStyle(r).getPropertyValue("--steps"));
     console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
@@ -272,9 +294,12 @@ function compareWinnerWithDefault(statement) {
 
 // compare text if previous text
 
-// function compareWithPreviousValue(previousValue) {
-//   if (previousValue.textContent = )
-// }
+function compareWithPreviousValue(previousValue) {
+  if (MESSAGE_BOX_MESSAGE.textContent === previousValue) {
+    return true;
+  }
+  return false;
+}
 
 // write text to div
 
