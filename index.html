@@ -28,11 +28,15 @@
     <main>
       <div class="container">
         <div class="mittagstisch">
-          <!-- <div class="circle"></div> -->
           <label for="entries">Wer ist dabei?</label>
           <ul id="the-list"></ul>
           <div class="text-entries">
-            <input type="text" id="entry" required />
+            <input
+              type="text"
+              id="entry"
+              placeholder="Name eingeben"
+              required
+            />
             <button type="submit" id="add-button">hinzufügen</button>
           </div>
           <dialog>
@@ -41,10 +45,7 @@
           </dialog>
           <button id="start-button">Klicken zum Starten!</button>
           <div class="message-box">
-            <div id="frontovers"></div>
-            <div id="messenger"></div>
-            <!-- <div id="message"></div> -->
-            <div id="leftovers"></div>
+            <div id="messenger" class="typed-out-default"></div>
           </div>
         </div>
       </div>
@@ -66,10 +67,10 @@
         </div>
       </div>
     </footer>
-    <script
+    <!-- <script
       src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"
       type="text/javascript"
-    ></script>
+    ></script> -->
     <script src="index.js" type="text/javascript"></script>
   </body>
 </html>

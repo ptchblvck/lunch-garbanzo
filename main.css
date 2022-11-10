@@ -1,3 +1,17 @@
+:root {
+  --color-white: #eeeeee;
+  --color-black: #222831;
+  --color-highlight: #00dee8;
+  --color-highlight-darker: #00adb5;
+  --color-background-light: #e3fdfd;
+  --color-background-dark: #393e46;
+  --color-primary: #ff2e63;
+
+  --steps: 50;
+  --time-duration: 7s;
+  --play-state: paused;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -17,44 +31,44 @@ a {
 }
 
 a:hover {
-  border-bottom: #00adb5 solid 5px;
+  border-bottom: var(--color-highlight-darker) solid 5px;
 }
 
 header {
-  background-color: #222831;
-  color: #eeeeee;
+  background-color: var(--color-black);
+  color: var(--color-white);
   display: grid;
   height: 8vh;
 }
 
 main {
-  background-color: #e3fdfd;
+  background-color: var(--color-background-light);
 }
 
 footer {
-  background-color: #222831;
-  color: #eeeeee;
+  background-color: var(--color-black);
+  color: var(--color-white);
   display: grid;
 }
 
 button {
-  border: 1px #222831 solid;
+  border: 1px var(--color-black) solid;
   padding: 15px;
   border-radius: 10px;
-  background-color: #393e46;
-  color: #00dee8;
+  background-color: var(--color-background-dark);
+  color: var(--color-highlight);
 }
 
 button:hover {
-  background-color: #00adb5;
-  color: #eeeeee;
-  border: #393e46 1px solid;
+  background-color: var(--color-highlight-darker);
+  color: var(--color-white);
+  border: var(--color-background-dark) 1px solid;
 }
 
 button:active {
-  background-color: #ff2e63;
-  color: #eeeeee;
-  border: #393e46 1px solid;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: var(--color-background-dark) 1px solid;
 }
 
 .nav-wrapper {
@@ -114,30 +128,14 @@ button:active {
   padding-block: 0.1em;
 }
 
-.columncount-to-two {
-  column-count: 2;
-}
-
-.columncount-to-three {
-  column-count: 3;
-}
-
-.columncount-to-four {
-  column-count: 4;
-}
-
-.columncount-to-five {
-  column-count: 5;
-}
-
 #the-list > *:hover {
-  color: #ff2e63;
+  color: var(--color-primary);
   cursor: pointer;
 }
 
 #the-list > li.crossed-out {
   text-decoration: line-through;
-  color: #00adb5;
+  color: var(--color-highlight-darker);
 }
 
 #entry {
@@ -145,7 +143,15 @@ button:active {
 }
 
 #entry:focus {
-  outline-color: #ff2e63;
+  outline-color: var(--color-primary);
+}
+
+#entry::placeholder {
+  text-align: center;
+}
+
+#entry:-ms-input-placeholder {
+  text-align: center;
 }
 
 #add-button {
@@ -154,14 +160,14 @@ button:active {
 }
 
 #name-entry {
-  color: #222831;
+  color: var(--color-black);
 }
 
 dialog {
   border-radius: 5px;
-  border: #393e46 solid 2px;
-  background-color: #ff2e63;
-  color: #eee;
+  border: var(--color-background-dark) solid 2px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   padding-inline: 10vw;
   margin-bottom: 50vh;
 }
@@ -184,22 +190,62 @@ dialog::backdrop {
 main .mittagstisch .message-box {
   width: 80%;
   height: 10vh;
-  background-color: #393e46;
-  color: #eee;
+  background-color: var(--color-background-dark);
+  color: var(--color-white);
   display: flex;
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
   border-radius: 15px;
   white-space: nowrap;
-  text-shadow: 0 2px 2px rgba(#000, 0.9);
+  text-shadow: 0 2px 2px rgba(var(--color-black), 0.9);
   font-size: 2.6vw;
   overflow: hidden;
   gap: 1vw;
 }
 
 #messenger {
-  color: #ff2e63;
+  color: var(--color-primary);
+}
+
+.typed-out-default {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing-1 var(--time-duration) steps(var(--steps), end) 1s infinite;
+  width: 0;
+}
+
+.typed-out-after-start {
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing-2 var(--time-duration) steps(var(--steps), end) 300ms
+    forwards;
+  width: 0;
+}
+
+@keyframes typing-1 {
+  0% {
+    width: 0;
+  }
+  20% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes typing-2 {
+  0% {
+    width: 0;
+  }
+  20% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 .help {
@@ -226,7 +272,7 @@ main .mittagstisch .message-box {
 }
 
 .help-wrapper > p > span {
-  color: #ff2e63;
+  color: var(--color-primary);
 }
 
 .whois {
@@ -239,7 +285,7 @@ main .mittagstisch .message-box {
 
 .knowledge:hover {
   border: none;
-  color: #ff2e63;
+  color: var(--color-primary);
 }
 
 .copyright {
