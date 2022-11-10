@@ -1,45 +1,76 @@
-const startButton = document.getElementById("start-button");
-const addButton = document.getElementById("add-button");
-const nameEntry = document.getElementById("entry");
-const dialog = document.querySelector("dialog");
-const dialogClose = document.querySelector("dialog>button");
-const theUltimateShowdown = document.getElementById("messenger");
-const dialogText = document.getElementById("add-text");
-const nameInDialog = document.getElementById("name-entry");
+// variables for all the DOM manipulation
 
-// namen hinzufuegen
+const START_BUTTON = document.getElementById("start-button");
+const ADD_BUTTON = document.getElementById("add-button");
+const NAME_ENTRY = document.getElementById("entry");
+const DIALOG = document.querySelector("dialog");
+const DIALOG_CLOSE = document.querySelector("dialog>button");
+const MESSAGE_BOX_MESSAGE = document.getElementById("messenger");
+const DIALOG_TEXT = document.getElementById("add-text");
+const NAME_IN_DIALOG = document.getElementById("name-entry");
+const r = document.documentElement;
+
+// add names
 
 let nameInputArray = [];
 
 function addAnotherPerson() {
-  let input = nameEntry.value;
+  let input = NAME_ENTRY.value;
   input = capitalizeFist(input);
   if (nameInputArray.includes(input)) {
+    // check if entry already exists
     alert("Eintrag existiert bereits!");
   } else {
+    // if entry doesn't exist it goes here
     if (input.length > 0) {
       insertName(input);
       nameInputArray.push(input);
-      dialogText.innerHTML = '<span id="name-entry"></span> hinzugefügt!';
+      DIALOG_TEXT.innerHTML = '<span id="name-entry"></span> hinzugefügt!';
       document.getElementById("name-entry").textContent = input;
       openDialogLight();
       console.log(nameInputArray);
-      nameEntry.value = "";
+      NAME_ENTRY.value = "";
       return true;
     }
     return false;
   }
 }
 
-// dialog oeffnen
+// set CSS steps variable value
+
+function setStepsVariableValue(textLength) {
+  let newStepsVariable = textLength;
+  r.style.setProperty("--steps", newStepsVariable);
+}
+
+// number to time conversion
+
+function convertNumberToTime(number) {
+  if (typeof number == "number") {
+    let result = Math.floor(number / 2);
+    return result + "s";
+  } else {
+    console.log(number + "is not a number!");
+    return NaN;
+  }
+}
+
+// set CSS time-duration variable value
+
+function setTimeVariableValue(durationValue) {
+  r.style.setProperty("--time-duration", durationValue);
+}
+
+// open dialog
 
 function openDialogLight(timeValue) {
   var timeValue = timeValue || 1000;
-  dialog.showModal();
+  DIALOG.showModal();
   addPlayers();
   setTimeout(function () {
-    dialog.close();
-  }, 2 * timeValue); // close dialog after 2s
+    DIALOG.close();
+  }, 2 * timeValue);
+  // close dialog after 2s
 }
 
 // capitalize first letter
@@ -54,44 +85,46 @@ function capitalizeFist(textValue) {
   return arr.join(" ");
 }
 
-// input weitergabe
+// input forwarding
 
 function insertName(phrase) {
-  nameInDialog.textContent = phrase;
+  NAME_IN_DIALOG.textContent = phrase;
 }
 
-// Leerer Eintrag darf nicht sein!
+// no empty entry is allowed!
 
-function checkIfFilled() {
-  if (nameEntry.value.length > 0) {
+function checkIfTxtinputExists() {
+  if (NAME_ENTRY.value.length > 0) {
     return false;
   }
-  dialogText.textContent = "Versuchen Sie es doch bitte einfach noch einmal!";
+  DIALOG_TEXT.textContent = "Versuchen Sie es doch bitte einfach noch einmal!";
   openDialogLight();
   console.log(nameInputArray);
   return true;
 }
 
-addButton.onclick = function () {
-  addButton.addEventListener("click", addToListEvent());
+// add button event
+
+ADD_BUTTON.onclick = function () {
+  ADD_BUTTON.addEventListener("click", addToListEvent());
 };
 
 function addToListEvent() {
   if (addAnotherPerson()) {
   } else {
-    if (checkIfFilled());
+    if (checkIfTxtinputExists());
   }
 }
 
-// Enter knopf zur Eingabe
+// Enter button for add
 
-nameEntry.addEventListener("keypress", (ent) => {
+NAME_ENTRY.addEventListener("keypress", (ent) => {
   if (ent.key === "Enter") {
-    addButton.click();
+    ADD_BUTTON.click();
   }
 });
 
-// name zufaellig auswaehlen
+// pick random array entry
 
 function whoIsPaying() {
   let randomPersonPosition = Math.floor(Math.random() * nameInputArray.length);
@@ -99,18 +132,18 @@ function whoIsPaying() {
   return randomPerson;
 }
 
-// dialog beenden
+// end dialog
 
-dialogClose.onclick = function () {
-  dialog.close();
+DIALOG_CLOSE.onclick = function () {
+  DIALOG.close();
   function keyPress(e) {
     if (e.key === "Escape") {
-      dialog.close();
+      DIALOG.close();
     }
   }
 };
 
-// liste hinzufuegen
+// add to list
 
 function addPlayers() {
   let template = nameInputArray
@@ -120,7 +153,7 @@ function addPlayers() {
   divideTheList();
 }
 
-// flexboxing the list
+// divide the list
 
 function divideTheList() {
   if (document.getElementById("the-list").querySelectorAll("li").length > 9) {
@@ -142,145 +175,120 @@ function divideTheList() {
   }
 }
 
-// check for startbuttonclick
+// message selection
 
-let clickStartStatus = function () {
-  startButton.onclick = function () {
-    console.log("startbutton was clicked");
+function codeMessageFunction() {
+  initCodeMessage();
+  messageDefaultText();
+}
+
+function initCodeMessage() {
+  START_BUTTON.onclick = function () {
+    START_BUTTON.addEventListener("click", choseTheLottertyWinner());
+  };
+}
+
+//check for message status
+
+function messageStatus() {
+  if (MESSAGE_BOX_MESSAGE.innerHTML.length == 0) {
     return true;
-  };
+  }
   return false;
-};
+}
 
-// nachrichten auswahl
+//default message into div
 
-var Messenger = function (el) {
-  "use strict";
-  var m = this;
+function messageDefaultText() {
+  let defaultMessageText = "der angezeigte name muss bezahlen!";
 
-  m.init = function () {
-    m.codeletters = "&#*+%?£@§$";
-    m.message = 0;
-    m.current_length = 0;
-    m.fadeBuffer = false;
-    m.messages = ["der angezeigte name muss bezahlen"];
+  while (messageStatus() === true) {
+    writeTxtToDiv(defaultMessageText);
+  }
+}
 
-    setTimeout(m.animateIn, 100);
+//chose a winner
 
-    startButton.onclick = function () {
-      startButton.addEventListener("click", changeEverthing());
-    };
+function choseTheLottertyWinner() {
+  let theChosenLotteryWinner = whoIsPaying(nameInputArray);
+  let chosenMessage = theChosenLotteryWinner + " wurde auserwählt!";
+  let winnerMessageLength = chosenMessage.length;
+  setStepsVariableValue(Math.floor(winnerMessageLength * 1.7));
+  setTimeVariableValue(convertNumberToTime(winnerMessageLength));
+  if (compareWinnerWithDefault(chosenMessage)) {
+    document.getElementById("messenger").classList.remove("typed-out-default");
+    document.getElementById("messenger").classList.add("typed-out-after-start");
 
-    function changeEverthing() {
-      let theChosenLotteryWinner = whoIsPaying(nameInputArray);
-      m.messages = [theChosenLotteryWinner + " wurde auserwählt!"];
-      removePlayers(theChosenLotteryWinner);
-      if (Array.isArray(nameInputArray) && !nameInputArray.length) {
-        dialogText.textContent =
-          "Es befinden sich keine Einträge in der Liste!";
-        openDialogLight(4000);
-        // alert("Es befinden sich keine Eintraege in der Liste!");
-      }
-      function removePlayers(playerName) {
-        if (nameInputArray.includes(playerName)) {
-          let crossedOutName = document
-            .getElementById("the-list")
-            .querySelectorAll("li");
-          for (let step = 0; step < crossedOutName.length; step++) {
-            const element = crossedOutName[step];
-            if (element.textContent === playerName) {
-              element.classList.add("crossed-out");
-            }
-          }
-          for (let jump = 0; jump < nameInputArray.length; jump++) {
-            if (nameInputArray.includes(playerName)) {
-              nameInputArray.splice(nameInputArray.indexOf(playerName), 1);
-            }
-          }
-          console.log(nameInputArray);
-        }
-      }
-    }
-  };
+    console.log(getComputedStyle(r).getPropertyValue("--steps"));
+    console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
+  }
 
-  m.generateRandomString = function (length) {
-    var random_text = "";
-    while (random_text.length < length) {
-      random_text += m.codeletters.charAt(
-        Math.floor(Math.random() * m.codeletters.length)
-      );
-    }
+  writeTxtToDiv(chosenMessage);
+  removePlayers(theChosenLotteryWinner);
 
-    return random_text;
-  };
+  // check if array is empty
+  if (Array.isArray(nameInputArray) && !nameInputArray.length) {
+    setStepsVariableValue(50);
+    setTimeVariableValue(convertNumberToTime(8));
+    setTimeout(function () {
+      DIALOG_TEXT.textContent = "Es befinden sich keine Einträge in der Liste!";
+      MESSAGE_BOX_MESSAGE.innerHTML = "der angezeigte name muss bezahlen!";
+      openDialogLight(4000);
+    }, 5000);
+  }
+}
 
-  m.animateIn = function () {
-    if (m.current_length < m.messages[m.message].length) {
-      m.current_length = m.current_length + 2;
-      if (m.current_length > m.messages[m.message].length) {
-        m.current_length = m.messages[m.message].length;
-      }
+// compare array entry with li and add crossed-out class
 
-      var message = m.generateRandomString(m.current_length);
-      $(el).html(message);
-
-      setTimeout(m.animateIn, 20);
-    } else {
-      setTimeout(m.animateFadeBuffer, 20);
-    }
-  };
-
-  m.animateFadeBuffer = function () {
-    if (m.fadeBuffer === false) {
-      m.fadeBuffer = [];
-      for (var i = 0; i < m.messages[m.message].length; i++) {
-        m.fadeBuffer.push({
-          c: Math.floor(Math.random() * 12) + 1,
-          l: m.messages[m.message].charAt(i),
-        });
+function removePlayers(playerName) {
+  if (nameInputArray.includes(playerName)) {
+    let crossedOutName = document
+      .getElementById("the-list")
+      .querySelectorAll("li");
+    for (let step = 0; step < crossedOutName.length; step++) {
+      const element = crossedOutName[step];
+      if (element.textContent === playerName) {
+        element.classList.add("crossed-out");
       }
     }
-
-    var do_cycles = false;
-    var message = "";
-
-    for (var i = 0; i < m.fadeBuffer.length; i++) {
-      var fader = m.fadeBuffer[i];
-      if (fader.c > 0) {
-        do_cycles = true;
-        fader.c--;
-        message += m.codeletters.charAt(
-          Math.floor(Math.random() * m.codeletters.length)
-        );
-      } else {
-        message += fader.l;
+    // delete entry from array
+    for (let jump = 0; jump < nameInputArray.length; jump++) {
+      if (nameInputArray.includes(playerName)) {
+        nameInputArray.splice(nameInputArray.indexOf(playerName), 1);
       }
     }
+    console.log(nameInputArray);
+  }
+}
 
-    $(el).html(message);
+// compare default text value with winner
 
-    if (do_cycles === true) {
-      setTimeout(m.animateFadeBuffer, 70);
-    } else {
-      setTimeout(m.cycleText, 5000);
+function compareWinnerWithDefault(statement) {
+  if ((statement.textContent = "der angezeigte name muss bezahlen!")) {
+    return true;
+  }
+  return false;
+}
+
+// compare text if previous text
+
+// function compareWithPreviousValue(previousValue) {
+//   if (previousValue.textContent = )
+// }
+
+// write text to div
+
+function writeTxtToDiv(writtenText) {
+  let remainingTextArray = Array.from(writtenText);
+  MESSAGE_BOX_MESSAGE.innerHTML = "";
+  for (let k = 0; k <= remainingTextArray.length; k++) {
+    const writtenTextStep = remainingTextArray[k];
+    if (k < writtenText.length) {
+      MESSAGE_BOX_MESSAGE.innerHTML += writtenTextStep; // writtenText.charAt(k);
     }
-  };
+  }
+}
 
-  m.cycleText = function () {
-    m.message = m.message + 1;
-    if (m.message >= m.messages.length) {
-      m.message = 0;
-    }
-
-    m.current_length = 0;
-    m.fadeBuffer = false;
-    $(el).html("");
-
-    setTimeout(m.animateIn, 200);
-  };
-
-  m.init();
-};
+codeMessageFunction();
 
 console.clear();
-var messenger = new Messenger($("#messenger"));
