@@ -9,6 +9,9 @@ const MESSAGE_BOX_MESSAGE = document.getElementById("messenger");
 const DIALOG_TEXT = document.getElementById("add-text");
 const NAME_IN_DIALOG = document.getElementById("name-entry");
 const r = document.documentElement;
+const BOWSER_BACKGROUND = document.getElementById("bowser-background");
+const BOWSER = document.getElementById("bowser");
+const WINSOUND = new Audio("sound/sm64_bowser_laugh.mp3");
 
 // add names
 
@@ -191,6 +194,7 @@ function initCodeMessage() {
       console.log("there are no entries in the List");
     } else {
       START_BUTTON.addEventListener("click", choseTheLottertyWinner());
+      START_BUTTON.addEventListener("click", restartAnimation, false);
     }
   };
 }
@@ -229,25 +233,22 @@ function choseTheLottertyWinner() {
       .classList.add("typed-out-before-start");
     console.log(getComputedStyle(r).getPropertyValue("--steps"));
     console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
+    setTimeout(() => {
+      WINSOUND.play();
+    }, Math.floor(winnerMessageLength) * 90);
+    setTimeout(() => {
+      BOWSER_BACKGROUND.classList.add("bowser-head-background");
+      BOWSER.classList.add("bowser-head");
+    }, Math.floor(winnerMessageLength) * 90);
   }
 
-  if (compareWithPreviousValue(chosenMessage)) {
-    // document
-    //   .getElementById("messenger")
-    //   .classList.remove("typed-out-before-start");
-    // setTimeout(function () {
-    //   document
-    //     .getElementById("messenger")
-    //     .classList.add("typed-out-after-start");
-    // }, 500);
+  BOWSER_BACKGROUND.classList.remove("bowser-head-background");
+  BOWSER.classList.remove("bowser-head");
 
-    // strictModeEnabled();
-    document.getElementById("messenger").style.animationPlayState = "paused";
-    document.getElementById("messenger").style.animationPlayState = "running";
-
-    console.log(getComputedStyle(r).getPropertyValue("--steps"));
-    console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
-  }
+  // if (compareWithPreviousValue(chosenMessage)) {
+  //   console.log(getComputedStyle(r).getPropertyValue("--steps"));
+  //   console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
+  // }
 
   writeTxtToDiv(chosenMessage);
   removePlayers(theChosenLotteryWinner);
@@ -262,6 +263,17 @@ function choseTheLottertyWinner() {
       openDialogLight(4000);
     }, 5000);
   }
+}
+
+// animation restart function
+
+function restartAnimation(event) {
+  let messengerAnimationElement = document.getElementById("messenger");
+  messengerAnimationElement.style.animationName = "none";
+
+  requestAnimationFrame(() => {
+    messengerAnimationElement.style.animationName = "";
+  });
 }
 
 // compare array entry with li and add crossed-out class
