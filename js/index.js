@@ -95,7 +95,7 @@ function capitalizeFist(textValue) {
 // input letters only
 
 function lettersOnlyCheck(inputtxt) {
-  let regEx = /^[A-Za-z äöüÄÖÜß]+$/;
+  let regEx = /^[A-Za-z äöüÄÖÜß-]+$/;
   if (inputtxt.value.match(regEx)) {
     return true;
   } else {
@@ -268,7 +268,9 @@ function choseTheLottertyWinner() {
   // }
 
   writeTxtToDiv(chosenMessage);
-  removePlayers(theChosenLotteryWinner);
+  setTimeout(() => {
+    removePlayers(theChosenLotteryWinner);
+  }, Math.floor(winnerMessageLength) * 90);
 
   // check if array is empty
   if (Array.isArray(nameInputArray) && !nameInputArray.length) {
