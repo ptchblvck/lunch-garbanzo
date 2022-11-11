@@ -95,7 +95,7 @@ function capitalizeFist(textValue) {
 // input letters only
 
 function lettersOnlyCheck(inputtxt) {
-  let regEx = /^[A-Za-z]+$/;
+  let regEx = /^[A-Za-z äöüÄÖÜß]+$/;
   if (inputtxt.value.match(regEx)) {
     return true;
   } else {
