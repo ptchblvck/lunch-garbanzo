@@ -19,24 +19,28 @@ let nameInputArray = [];
 
 function addAnotherPerson() {
   let input = NAME_ENTRY.value;
-  input = capitalizeFist(input);
-  if (nameInputArray.includes(input)) {
-    // check if entry already exists
-    alert("Eintrag existiert bereits!");
-  } else {
-    // if entry doesn't exist it goes here
-    if (input.length > 0) {
-      insertName(input);
-      nameInputArray.push(input);
-      DIALOG_TEXT.innerHTML = '<span id="name-entry"></span> hinzugefügt!';
-      document.getElementById("name-entry").textContent = input;
-      openDialogLight();
-      console.log(nameInputArray);
-      NAME_ENTRY.value = "";
-      return true;
+  if (lettersOnlyCheck(NAME_ENTRY)) {
+    input = capitalizeFist(input);
+    if (nameInputArray.includes(input)) {
+      // check if entry already exists
+      alert("Eintrag existiert bereits!");
+    } else {
+      // if entry doesn't exist it goes here
+      if (input.length > 0) {
+        insertName(input);
+        nameInputArray.push(input);
+        DIALOG_TEXT.innerHTML = '<span id="name-entry"></span> hinzugefügt!';
+        document.getElementById("name-entry").textContent = input;
+        openDialogLight();
+        console.log(nameInputArray);
+        NAME_ENTRY.value = "";
+        return true;
+      }
+      return false;
     }
     return false;
   }
+  return false;
 }
 
 // set CSS steps variable value
@@ -86,6 +90,19 @@ function capitalizeFist(textValue) {
       arr[i].slice(1).toLocaleLowerCase();
   }
   return arr.join(" ");
+}
+
+// input letters only
+
+function lettersOnlyCheck(inputtxt) {
+  let regEx = /^[A-Za-z]+$/;
+  if (inputtxt.value.match(regEx)) {
+    return true;
+  } else {
+    DIALOG_TEXT.textContent = "Es sind nur Buchstaben von A-Z und a-z erlaubt!";
+    openDialogLight();
+    return false;
+  }
 }
 
 // input forwarding
