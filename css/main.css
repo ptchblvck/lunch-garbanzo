@@ -10,6 +10,8 @@
   --steps: 50;
   --time-duration: 7s;
   --play-state: paused;
+
+  --column-count: 1;
 }
 
 * {
@@ -187,6 +189,10 @@ button:active {
 #the-list > li.crossed-out {
   text-decoration: line-through;
   color: var(--color-highlight-darker);
+}
+
+.columncount-increase {
+  column-count: var(--column-count);
 }
 
 #entry {

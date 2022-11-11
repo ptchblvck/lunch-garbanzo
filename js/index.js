@@ -34,6 +34,7 @@ function addAnotherPerson() {
         openDialogLight();
         console.log(nameInputArray);
         NAME_ENTRY.value = "";
+        divideTheList();
         return true;
       }
       return false;
@@ -68,10 +69,15 @@ function setTimeVariableValue(durationValue) {
   r.style.setProperty("--time-duration", durationValue);
 }
 
+// set CSS column-count variable value
+
+function setColumnCount(number) {
+  r.style.setProperty("--column-count", number);
+}
+
 // open dialog
 
-function openDialogLight(timeValue) {
-  var timeValue = timeValue || 1000;
+function openDialogLight(timeValue = 1000) {
   DIALOG.showModal();
   addPlayers();
   setTimeout(function () {
@@ -170,28 +176,26 @@ function addPlayers() {
     .map((player) => `<li>${player}</li>`)
     .join("\n");
   document.getElementById("the-list").innerHTML = template;
-  divideTheList();
 }
 
 // divide the list
 
 function divideTheList() {
-  if (document.getElementById("the-list").querySelectorAll("li").length > 9) {
-    document.getElementById("the-list").classList.add("columncount-to-two");
+  const LIST_ITEMS = document.getElementById("the-list").querySelectorAll("li");
+  const THE_LIST = document.getElementById("the-list");
+  THE_LIST.classList.add("columncount-increase");
+  if (LIST_ITEMS.length >= 10) {
+    document.getElementById("the-list").classList.add("columncount-increase");
+    setColumnCount(2);
   }
-  if (document.getElementById("the-list").querySelectorAll("li").length > 20) {
-    document.getElementById("the-list").classList.remove("columncount-to-two");
-    document.getElementById("the-list").classList.add("columncount-to-three");
+  if (LIST_ITEMS.length > 20) {
+    setColumnCount(3);
   }
-  if (document.getElementById("the-list").querySelectorAll("li").length > 30) {
-    document
-      .getElementById("the-list")
-      .classList.remove("columncount-to-three");
-    document.getElementById("the-list").classList.add("columncount-to-four");
+  if (LIST_ITEMS.length > 30) {
+    setColumnCount(4);
   }
-  if (document.getElementById("the-list").querySelectorAll("li").length > 40) {
-    document.getElementById("the-list").classList.remove("columncount-to-four");
-    document.getElementById("the-list").classList.add("columncount-to-five");
+  if (LIST_ITEMS.length > 40) {
+    setColumnCount(5);
   }
 }
 
@@ -261,11 +265,6 @@ function choseTheLottertyWinner() {
 
   BOWSER_BACKGROUND.classList.remove("bowser-head-background");
   BOWSER.classList.remove("bowser-head");
-
-  // if (compareWithPreviousValue(chosenMessage)) {
-  //   console.log(getComputedStyle(r).getPropertyValue("--steps"));
-  //   console.log(getComputedStyle(r).getPropertyValue("--time-duration"));
-  // }
 
   writeTxtToDiv(chosenMessage);
   setTimeout(() => {
