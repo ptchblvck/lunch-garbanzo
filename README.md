@@ -1,2 +1,2 @@
 # lunch-garbanzo
-random function to determin who has to pay for lunch that day
+random function to determine who has to pay for lunch with funny animations and dummy knowledge implemented
