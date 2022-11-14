@@ -56,6 +56,16 @@ footer {
   display: grid;
 }
 
+video {
+  visibility: hidden;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  margin-inline: auto;
+  z-index: 201;
+  background-color: #000;
+}
+
 button {
   border: 1px var(--color-black) solid;
   padding: 15px;
@@ -245,6 +255,7 @@ dialog::backdrop {
 }
 
 main .mittagstisch .message-box {
+  cursor: not-allowed;
   width: 80%;
   height: 10vh;
   background-color: var(--color-background-dark);
@@ -363,6 +374,7 @@ main .mittagstisch .message-box {
 }
 
 .knowledge:hover {
+  cursor: pointer;
   border: none;
   color: var(--color-primary);
 }

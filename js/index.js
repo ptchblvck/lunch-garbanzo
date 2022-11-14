@@ -2,6 +2,7 @@
 
 const START_BUTTON = document.getElementById("start-button");
 const ADD_BUTTON = document.getElementById("add-button");
+const KNOWLEDGE_BUTTON = document.querySelector(".knowledge");
 const NAME_ENTRY = document.getElementById("entry");
 const DIALOG = document.querySelector("dialog");
 const DIALOG_CLOSE = document.querySelector("dialog>button");
@@ -12,6 +13,7 @@ const r = document.documentElement;
 const BOWSER_BACKGROUND = document.getElementById("bowser-background");
 const BOWSER = document.getElementById("bowser");
 const WINSOUND = new Audio("sound/sm64_bowser_laugh.mp3");
+const KNOWLEDGE_VIDEO = document.getElementById("knowledge-video");
 
 // add names
 
@@ -367,6 +369,27 @@ function writeTxtToDiv(writtenText) {
       MESSAGE_BOX_MESSAGE.innerHTML += writtenTextStep; // writtenText.charAt(k);
     }
   }
+}
+
+// play the knowledge meme video on full display
+
+KNOWLEDGE_BUTTON.onclick = function () {
+  console.log("knowledge was found.");
+  playKnowledge();
+};
+
+function playKnowledge() {
+  KNOWLEDGE_VIDEO.style.visibility = "visible";
+  playTheVideo();
+  setTimeout(function () {
+    KNOWLEDGE_VIDEO.style.visibility = "hidden";
+  }, 1000);
+}
+
+function playTheVideo() {
+  KNOWLEDGE_VIDEO.muted = false;
+  void KNOWLEDGE_VIDEO.offsetWidth;
+  KNOWLEDGE_VIDEO.play();
 }
 
 codeMessageFunction();
