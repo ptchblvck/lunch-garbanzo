@@ -75,6 +75,7 @@ button {
 }
 
 button:hover {
+  cursor: pointer;
   background-color: var(--color-highlight-darker);
   color: var(--color-white);
   border: var(--color-background-dark) 1px solid;
@@ -373,8 +374,16 @@ main .mittagstisch .message-box {
   height: 17vh;
 }
 
-.knowledge:hover {
+.whois:hover {
   cursor: pointer;
+}
+
+.knowledge-index:hover {
+  border: none;
+  color: var(--color-primary);
+}
+
+.knowledge-help:hover {
   border: none;
   color: var(--color-primary);
 }

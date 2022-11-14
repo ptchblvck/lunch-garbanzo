@@ -2,7 +2,6 @@
 
 const START_BUTTON = document.getElementById("start-button");
 const ADD_BUTTON = document.getElementById("add-button");
-const KNOWLEDGE_BUTTON = document.querySelector(".knowledge");
 const NAME_ENTRY = document.getElementById("entry");
 const DIALOG = document.querySelector("dialog");
 const DIALOG_CLOSE = document.querySelector("dialog>button");
@@ -13,7 +12,10 @@ const r = document.documentElement;
 const BOWSER_BACKGROUND = document.getElementById("bowser-background");
 const BOWSER = document.getElementById("bowser");
 const WINSOUND = new Audio("sound/sm64_bowser_laugh.mp3");
+const KNOWLEDGE_INDEX_BUTTON = document.querySelector(".knowledge-index");
 const KNOWLEDGE_VIDEO = document.getElementById("knowledge-video");
+const KNOWLEDGE_HELP_BUTTON = document.querySelector(".knowledge-help");
+const KNOWLEDGE_VIDEO_HELP = document.getElementById("knowledge-video-help");
 
 // add names
 
@@ -328,36 +330,6 @@ function compareWinnerWithDefault(statement) {
   return false;
 }
 
-// compare text if previous text
-
-function compareWithPreviousValue(previousValue) {
-  if (MESSAGE_BOX_MESSAGE.textContent === previousValue) {
-    return true;
-  }
-  return false;
-}
-
-// change to strict mode
-
-function strictModeEnabled() {
-  "use strict";
-  document.getElementById("messenger").addEventListener(
-    "animationiteration",
-    function (g) {
-      g.preventDefault;
-      document
-        .getElementById("messenger")
-        .classList.remove("typed-out-before-start");
-
-      void document.getElementById("messenger").offsetWidth;
-      document
-        .getElementById("messenger")
-        .classList.add("typed-out-before-start");
-    },
-    false
-  );
-}
-
 // write text to div
 
 function writeTxtToDiv(writtenText) {
@@ -373,23 +345,37 @@ function writeTxtToDiv(writtenText) {
 
 // play the knowledge meme video on full display
 
-KNOWLEDGE_BUTTON.onclick = function () {
+KNOWLEDGE_INDEX_BUTTON.onclick = function () {
   console.log("knowledge was found.");
   playKnowledge();
 };
 
 function playKnowledge() {
-  KNOWLEDGE_VIDEO.style.visibility = "visible";
-  playTheVideo();
-  setTimeout(function () {
-    KNOWLEDGE_VIDEO.style.visibility = "hidden";
-  }, 1000);
+  if (window.location.pathname.includes("index") == true) {
+    KNOWLEDGE_VIDEO.style.visibility = "visible";
+    playTheVideo();
+    setTimeout(function () {
+      KNOWLEDGE_VIDEO.style.visibility = "hidden";
+    }, 1000);
+  } else if (window.location.pathname.includes("help") == true) {
+    KNOWLEDGE_VIDEO_HELP.style.visibility = "visible";
+    playTheVideo();
+    setTimeout(function () {
+      KNOWLEDGE_VIDEO_HELP.style.visibility = "hidden";
+    }, 1000);
+  }
 }
 
 function playTheVideo() {
-  KNOWLEDGE_VIDEO.muted = false;
-  void KNOWLEDGE_VIDEO.offsetWidth;
-  KNOWLEDGE_VIDEO.play();
+  if (window.location.pathname.includes("help") == true) {
+    KNOWLEDGE_VIDEO_HELP.muted = false;
+    void KNOWLEDGE_VIDEO_HELP.offsetWidth;
+    KNOWLEDGE_VIDEO_HELP.play();
+  } else if (window.location.pathname.includes("index") == true) {
+    KNOWLEDGE_VIDEO.muted = false;
+    void KNOWLEDGE_VIDEO.offsetWidth;
+    KNOWLEDGE_VIDEO.play();
+  }
 }
 
 codeMessageFunction();
