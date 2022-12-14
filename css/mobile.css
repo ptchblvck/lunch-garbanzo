@@ -1,0 +1,43 @@
+@media screen and (max-width: 600px) {
+  .navbar__heading {
+    display: none;
+  }
+
+  header > div > .navbar__icon {
+    margin-inline: 0;
+  }
+
+  main > div.container {
+    width: 100%;
+  }
+
+  body > header > nav.container.navbar {
+    width: 100%;
+  }
+
+  main > div > div.mittagstisch > div.text-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+  }
+
+  #entry {
+    width: 90vw;
+    height: 40px;
+  }
+
+  #add-button {
+    width: 120px;
+    align-self: center;
+  }
+
+  main > div > div.mittagstisch > div.message-box {
+    width: 95vw;
+    height: 15vh;
+  }
+
+  #messenger {
+    font-size: 3em;
+    word-wrap: break-word;
+  }
+}
